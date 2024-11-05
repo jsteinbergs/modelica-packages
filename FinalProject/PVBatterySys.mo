@@ -1,18 +1,18 @@
 within FinalProject;
 model PVBatterySys
-  parameter Real SOC_start(max=1) = 0.1
+  parameter Real SOC_start(max=1)
     "Initial State of Charge";
-  parameter Modelica.Units.SI.Energy EMax(min=0, displayUnit="kW.h") = 36000000
+  parameter Modelica.Units.SI.Energy EMax(min=0, displayUnit="kW.h")
     "Maximum available charge";
-  parameter Modelica.Units.SI.Voltage V_nominal = 480
+  parameter Modelica.Units.SI.Voltage V_nominal
     "Nominal PV/Battery voltage";
-  parameter Modelica.Units.SI.Power P_nominal = -2000
+  parameter Modelica.Units.SI.Power P_nominal
     "Maximum Electrical Load";
-  parameter Modelica.Units.SI.Area A = 20
+  parameter Modelica.Units.SI.Area A
     "PV gross surface area";
-  parameter Modelica.Units.SI.Angle til(displayUnit="deg") = 0.5235987755983
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg")
     "PV surface tilt";
-  parameter Modelica.Units.SI.Angle azi(displayUnit="deg") = 0.26179938779915
+  parameter Modelica.Units.SI.Angle azi(displayUnit="deg")
     "PV surface azimuth";
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery bat(
