@@ -23,7 +23,14 @@ model MP4
     maxCha=0.9,
     chaRat=5000)
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
-  FinalProject.PVBatterySys house
+  FinalProject.PVBatterySys house(
+    SOC_start=0.1,
+    EMax=36000000,
+    V_nominal=480,
+    P_nominal=-2000,
+    A=20,
+    til=0.0091385225936013,
+    azi=0.0045692612968006)
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Modelica.Blocks.Math.Add loadPVDiff(k1=-1, k2=+1)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
