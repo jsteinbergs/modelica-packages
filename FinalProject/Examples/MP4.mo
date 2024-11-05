@@ -69,9 +69,8 @@ equation
   connect(loadProfile.y, house.loa) annotation (Line(points={{-59,10},{-40,10},
           {-40,-4},{-1,-4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{120,100}})),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{120,
-            100}})),
+            -60},{80,100}})),                                    Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-60},{80,100}})),
     experiment(
       StartTime=17539200,
       StopTime=17798400,
