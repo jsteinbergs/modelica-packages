@@ -17,8 +17,6 @@ model CTSBHysterysis
   Modelica.Blocks.Sources.RealExpression dischargingRate(y=min(max(-chaRat,
         loaDif), 0))
     annotation (Placement(transformation(extent={{-60,-68},{-40,-48}})));
-  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Interfaces.RealInput loaDif
     annotation (Placement(transformation(extent={{-130,20},{-90,60}})));
   Modelica.Blocks.Interfaces.RealInput cha
