@@ -7,7 +7,7 @@ model ControlBattery
   parameter Modelica.Units.SI.Power chaRat(min=0)
     "Maximum charging rate";
   parameter Real deadbandFrac(min=0.01,max=0.99)
-    "Deadband fraction of charge to avoid charge and discharge cycling";
+    "Fraction of charge used to define deadband";
   Modelica.Blocks.Logical.Switch dualModeSwitch
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Logical.Switch singleModeSwitch
