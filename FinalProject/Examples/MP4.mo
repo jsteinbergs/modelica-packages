@@ -18,7 +18,7 @@ model MP4
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  FinalProject.ControlTwoSourceBattery control(
+  FinalProject.ControlBattery control(
     minCha=0.1,
     maxCha=0.9,
     chaRat=5000)

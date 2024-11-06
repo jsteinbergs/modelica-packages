@@ -1,4 +1,4 @@
-ControlTwoSourceBattery
-CTSBHysterysis
+ControlBattery
+ControlBatteryHysterysis
 PVBatterySys
 Examples
