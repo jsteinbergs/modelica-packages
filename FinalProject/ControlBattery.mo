@@ -6,6 +6,8 @@ model ControlBattery
     "Maximum allowable charge";
   parameter Modelica.Units.SI.Power chaRat(min=0)
     "Maximum charging rate";
+  parameter Real deadbandFrac(min=0.01,max=0.99)
+    "Deadband fraction of charge to avoid charge and discharge cycling";
   Modelica.Blocks.Logical.Switch dualModeSwitch
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Logical.Switch singleModeSwitch
@@ -18,9 +20,9 @@ model ControlBattery
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.StateGraph.Transition T1(condition=cha < minCha)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Modelica.StateGraph.Transition T4(condition=cha < 0.9*maxCha)
+  Modelica.StateGraph.Transition T4(condition=cha < maxCha - deadbandFrac)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Modelica.StateGraph.Transition T2(condition=cha > 1.1*minCha)
+  Modelica.StateGraph.Transition T2(condition=cha > minCha + deadbandFrac)
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Modelica.StateGraph.Step dischargeOnly(nIn=1, nOut=1)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));

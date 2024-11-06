@@ -21,7 +21,8 @@ model MP4
   FinalProject.ControlBattery control(
     minCha=0.1,
     maxCha=0.9,
-    chaRat=5000)
+    chaRat=5000,
+    deadbandFrac=0.05)
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
   FinalProject.PVBatterySys house(
     SOC_start=0.1,
@@ -29,8 +30,8 @@ model MP4
     V_nominal=480,
     P_nominal=-2000,
     A=20,
-    til=0.0091385225936013,
-    azi=0.0045692612968006)
+    til=0.5235987755983,
+    azi=0.26179938779915)
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Modelica.Blocks.Math.Add loadPVDiff(k1=-1, k2=+1)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
@@ -58,6 +59,8 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  connect(loadProfile.y, house.loa) annotation (Line(points={{-59,10},{-40,10},
+          {-40,-4},{-1,-4}}, color={0,0,127}));
   connect(weaBus, house.weaBus) annotation (Line(
       points={{10,50},{10,-1}},
       color={255,204,51},
@@ -66,8 +69,6 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(loadProfile.y, house.loa) annotation (Line(points={{-59,10},{-40,10},
-          {-40,-4},{-1,-4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -60},{80,100}})),                                    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-60},{80,100}})),
