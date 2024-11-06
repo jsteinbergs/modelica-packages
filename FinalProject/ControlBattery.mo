@@ -40,6 +40,9 @@ model ControlBattery
     annotation (Placement(transformation(extent={{-130,-60},{-90,-20}})));
   Modelica.Blocks.Interfaces.RealOutput P
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Sources.RealExpression power(y=min(chaRat, max(-chaRat,
+        loaDif)))
+    annotation (Placement(transformation(extent={{-60,-32},{-40,-12}})));
 equation
   connect(singleModeSwitch.y, dualModeSwitch.u3) annotation (Line(points={{1,-50},
           {10,-50},{10,-38},{18,-38}}, color={0,0,127}));
@@ -70,12 +73,12 @@ equation
     annotation (Line(points={{-39,-42},{-22,-42}},color={0,0,127}));
   connect(dischargingRate.y, singleModeSwitch.u3)
     annotation (Line(points={{-39,-58},{-22,-58}},color={0,0,127}));
-  connect(loaDif, dualModeSwitch.u1) annotation (Line(points={{-110,40},{-40,40},
-          {-40,-22},{18,-22}}, color={0,0,127}));
   connect(P,P)
     annotation (Line(points={{110,0},{110,0}},     color={0,0,127}));
   connect(dualModeSwitch.y, P) annotation (Line(points={{41,-30},{96,-30},{96,0},
           {110,0}}, color={0,0,127}));
+  connect(power.y, dualModeSwitch.u1)
+    annotation (Line(points={{-39,-22},{18,-22}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
