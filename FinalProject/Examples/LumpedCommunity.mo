@@ -32,7 +32,7 @@ model LumpedCommunity
             -282,-18},{-262,2}})));
 equation
   connect(gri.terminal, community.terminal) annotation (Line(points={{-70,-40},
-          {-70,-44},{-10,-44},{-10,-10},{-0.4,-10}}, color={0,120,120}));
+          {-70,-50},{-40,-50},{-40,-10},{-0.4,-10}}, color={0,120,120}));
   connect(community.batSOC, control.cha) annotation (Line(points={{21,-16},{50,
           -16},{50,-34},{41,-34}}, color={0,0,127}));
   connect(community.absLoa, loadPVDiff.u1) annotation (Line(points={{21,-4},{28,

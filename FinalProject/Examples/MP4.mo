@@ -3,7 +3,7 @@ model MP4
   "Models RL load suplied by PV, battery, and grid for a residential home."
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+        "modelica://Buildings/Resources/weatherdata/USA_NY_Elmira.Rgnl.AP.725156_TMY3.mos"))
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.TimeTable loadProfile(
     table=[0,0.05; 9,0.05; 9,0.2; 11,0.2; 11,0.1; 15,0.1; 15,0.3; 18,0.3; 18,1;
@@ -26,10 +26,10 @@ model MP4
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
   FinalProject.PVBatterySys house(
     SOC_start=0.1,
-    EMax=36000000,
+    EMax=32400000,
     V_nominal=480,
     P_nominal=-2000,
-    A=20,
+    A=9.2,
     til=0.5235987755983,
     azi=0.26179938779915)
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
