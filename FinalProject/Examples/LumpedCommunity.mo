@@ -30,6 +30,8 @@ model LumpedCommunity
   Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-10,30},{30,70}}), iconTransformation(extent={{
             -282,-18},{-262,2}})));
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Resistive loa
+    annotation (Placement(transformation(extent={{-60,-80},{-80,-60}})));
 equation
   connect(gri.terminal, community.terminal) annotation (Line(points={{-70,-40},
           {-70,-50},{-40,-50},{-40,-10},{-0.4,-10}}, color={0,120,120}));
@@ -61,6 +63,8 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
+  connect(loa.terminal, community.terminal) annotation (Line(points={{-60,-70},
+          {-18,-70},{-18,-10},{-0.4,-10}}, color={0,120,120}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{120,100}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{120,
