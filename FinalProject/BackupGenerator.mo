@@ -58,14 +58,10 @@ equation
                                  color={0,120,120}));
   connect(fuelUsage, fuelUsage)
     annotation (Line(points={{110,60},{110,60}}, color={0,0,127}));
-  connect(product.y, fuelUsage) annotation (Line(points={{21,-30},{32,-30},{32,-56},
-          {94,-56},{94,60},{110,60}}, color={0,0,127}));
-  connect(product.y, emissions) annotation (Line(points={{21,-30},{32,-30},{32,-56},
-          {94,-56},{94,0},{110,0}},     color={0,0,127}));
   connect(loaDif, product.u2) annotation (Line(points={{-110,60},{-80,60},{-80,-60},
           {-10,-60},{-10,-36},{-2,-36}}, color={0,0,127}));
-  connect(product.y, P) annotation (Line(points={{21,-30},{32,-30},{32,-56},{94,
-          -56},{94,-60},{110,-60}}, color={0,0,127}));
+  connect(product.y, P) annotation (Line(points={{21,-30},{30,-30},{30,-60},{
+          110,-60}},                color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(
           extent={{-60,20},{20,-40}},
