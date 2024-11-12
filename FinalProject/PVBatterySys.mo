@@ -22,7 +22,7 @@ model PVBatterySys
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive loadRL(mode=
         Buildings.Electrical.Types.Load.VariableZ_y_input, P_nominal=P_nominal)
-    annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-20,20},{-40,40}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented pv(
     A=A,
     til=til,
@@ -51,7 +51,8 @@ equation
   connect(pv.terminal, bat.terminal) annotation (Line(points={{0,30},{-4,30},{
           -4,-10},{0,-10}}, color={0,120,120}));
   connect(loadRL.terminal, bat.terminal)
-    annotation (Line(points={{-20,-10},{0,-10}}, color={0,120,120}));
+    annotation (Line(points={{-20,30},{-4,30},{-4,-10},{0,-10}},
+                                                 color={0,120,120}));
   connect(weaBus, pv.weaBus) annotation (Line(
       points={{0,80},{0,44},{10,44},{10,39}},
       color={255,204,51},
@@ -64,14 +65,14 @@ equation
         color={0,0,127}));
   connect(bat.SOC, batSOC) annotation (Line(points={{21,-4},{96,-4},{96,-60},{
           110,-60}}, color={0,0,127}));
-  connect(loa, loadRL.y) annotation (Line(points={{-110,60},{-70,60},{-70,-10},
-          {-40,-10}},           color={0,0,127}));
+  connect(loa, loadRL.y) annotation (Line(points={{-110,60},{-50,60},{-50,30},{
+          -40,30}},             color={0,0,127}));
   connect(batP, bat.P) annotation (Line(points={{-110,-60},{40,-60},{40,8},{10,
           8},{10,0}},  color={0,0,127}));
   connect(loadAbs.y, absLoa)
     annotation (Line(points={{81,60},{110,60}}, color={0,0,127}));
-  connect(terminal, pv.terminal) annotation (Line(points={{-104,0},{-80,0},{-80,
-          10},{-4,10},{-4,30},{0,30}}, color={0,120,120}));
+  connect(terminal, pv.terminal) annotation (Line(points={{-104,0},{-4,0},{-4,
+          30},{0,30}},                 color={0,120,120}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(
