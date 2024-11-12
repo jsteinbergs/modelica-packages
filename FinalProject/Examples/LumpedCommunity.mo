@@ -40,7 +40,11 @@ model LumpedCommunity
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Modelica.Blocks.Math.Add reqBatP
     annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
-  BackupGenerator gen(minCha=0.2, startupTime=10)
+  BackupGenerator gen(
+    minCha=0.2,
+    startupTime=10,
+    eta=0.4,
+    LHV(displayUnit="J/kg"))
     annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
 equation
   connect(community.batSOC, batControl.cha) annotation (Line(points={{21,-16},{

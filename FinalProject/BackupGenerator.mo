@@ -4,6 +4,12 @@ model BackupGenerator
     "Minimum SOC to start generator";
   parameter Modelica.Units.SI.Time startupTime(min=0)
     "Time for generator to startup";
+  parameter Real eta(min=0,max=1)
+    "Generator overall efficiency)";
+  parameter Real LHV
+    "Lower heating value of the fuel";
+  parameter Real MW
+    "Molar mass of fuel";
   Modelica.StateGraph.InitialStep genOff(nOut=1, nIn=1)
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.StateGraph.StepWithSignal genOn(nIn=1, nOut=1)
@@ -22,7 +28,7 @@ model BackupGenerator
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Generator gen(f=60)
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Modelica.Blocks.Interfaces.RealInput loaDif
     annotation (Placement(transformation(extent={{-130,40},{-90,80}})));
   Modelica.Blocks.Interfaces.RealInput batSOC
@@ -38,6 +44,10 @@ model BackupGenerator
   Modelica.Blocks.Interfaces.RealOutput P annotation (Placement(transformation(
           extent={{100,-70},{120,-50}}), iconTransformation(extent={{100,-70},{120,
             -50}})));
+  Modelica.Blocks.Math.Gain fuelMass(k=1/(eta*LHV))
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
+  Modelica.Blocks.Math.Gain emiss(k=44/MW)
+    annotation (Placement(transformation(extent={{72,10},{92,30}})));
 equation
   connect(genOff.outPort[1], turnON.inPort)
     annotation (Line(points={{-39.5,50},{-34,50}}, color={0,0,0}));
@@ -54,14 +64,22 @@ equation
   connect(product.y, gen.P)
     annotation (Line(points={{21,-30},{40,-30}}, color={0,0,127}));
   connect(gen.terminal, terminal) annotation (Line(points={{60,-30},{80,-30},{80,
-          80},{0,80},{0,100},{-4,100}},
+          0},{0,0},{0,100},{-4,100}},
                                  color={0,120,120}));
   connect(fuelUsage, fuelUsage)
     annotation (Line(points={{110,60},{110,60}}, color={0,0,127}));
   connect(loaDif, product.u2) annotation (Line(points={{-110,60},{-80,60},{-80,-60},
           {-10,-60},{-10,-36},{-2,-36}}, color={0,0,127}));
-  connect(product.y, P) annotation (Line(points={{21,-30},{30,-30},{30,-60},{
-          110,-60}},                color={0,0,127}));
+  connect(product.y, P) annotation (Line(points={{21,-30},{30,-30},{30,-60},{110,
+          -60}}, color={0,0,127}));
+  connect(product.y, fuelMass.u) annotation (Line(points={{21,-30},{30,-30},{30,
+          60},{38,60}}, color={0,0,127}));
+  connect(fuelMass.y, fuelUsage)
+    annotation (Line(points={{61,60},{110,60}}, color={0,0,127}));
+  connect(fuelMass.y, emiss.u) annotation (Line(points={{61,60},{66,60},{66,20},
+          {70,20}}, color={0,0,127}));
+  connect(emiss.y, emissions) annotation (Line(points={{93,20},{96,20},{96,0},{110,
+          0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(
           extent={{-60,20},{20,-40}},
