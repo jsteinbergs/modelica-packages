@@ -5,7 +5,7 @@ model BackupGenerator
   parameter Modelica.Units.SI.Time startupTime(min=0)
     "Time for generator to startup";
   parameter Real eta(min=0,max=1)
-    "Generator overall efficiency)";
+    "Generator overall efficiency";
   parameter Modelica.Units.SI.SpecificEnergy LHV
     "Lower heating value of the fuel";
   parameter Real MW
@@ -44,10 +44,14 @@ model BackupGenerator
   Modelica.Blocks.Interfaces.RealOutput P annotation (Placement(transformation(
           extent={{100,-70},{120,-50}}), iconTransformation(extent={{100,-70},{120,
             -50}})));
-  Modelica.Blocks.Math.Gain fuelMass(k=1/(eta*LHV))
-    annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Modelica.Blocks.Math.Gain carbonEmissions(k=44/MW)
-    annotation (Placement(transformation(extent={{72,10},{92,30}})));
+  Modelica.Blocks.Sources.RealExpression energyReq(y=1/(eta*LHV))
+    annotation (Placement(transformation(extent={{10,46},{30,66}})));
+  Modelica.Blocks.Math.Product fuelMass
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+  Modelica.Blocks.Math.Product co2Emissions
+    annotation (Placement(transformation(extent={{70,10},{90,30}})));
+  Modelica.Blocks.Sources.RealExpression massRatio(y=44/MW)
+    annotation (Placement(transformation(extent={{40,4},{60,24}})));
 equation
   connect(genOff.outPort[1], turnON.inPort)
     annotation (Line(points={{-39.5,50},{-34,50}}, color={0,0,0}));
@@ -72,14 +76,18 @@ equation
           {-10,-60},{-10,-36},{-2,-36}}, color={0,0,127}));
   connect(product.y, P) annotation (Line(points={{21,-30},{30,-30},{30,-60},{110,
           -60}}, color={0,0,127}));
-  connect(product.y, fuelMass.u) annotation (Line(points={{21,-30},{30,-30},{30,
-          60},{38,60}}, color={0,0,127}));
-  connect(fuelMass.y, fuelUsage)
-    annotation (Line(points={{61,60},{110,60}}, color={0,0,127}));
-  connect(fuelMass.y, carbonEmissions.u) annotation (Line(points={{61,60},{66,
-          60},{66,20},{70,20}}, color={0,0,127}));
-  connect(carbonEmissions.y, CO2) annotation (Line(points={{93,20},{96,20},{96,
-          0},{110,0}}, color={0,0,127}));
+  connect(energyReq.y, fuelMass.u1)
+    annotation (Line(points={{31,56},{38,56}}, color={0,0,127}));
+  connect(product.y, fuelMass.u2) annotation (Line(points={{21,-30},{30,-30},{30,
+          44},{38,44}}, color={0,0,127}));
+  connect(fuelMass.y, co2Emissions.u1) annotation (Line(points={{61,50},{64,50},
+          {64,26},{68,26}}, color={0,0,127}));
+  connect(massRatio.y, co2Emissions.u2)
+    annotation (Line(points={{61,14},{68,14}}, color={0,0,127}));
+  connect(co2Emissions.y, CO2) annotation (Line(points={{91,20},{96,20},{96,0},{
+          110,0}}, color={0,0,127}));
+  connect(fuelMass.y, fuelUsage) annotation (Line(points={{61,50},{94,50},{94,60},
+          {110,60}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(
           extent={{-60,20},{20,-40}},
