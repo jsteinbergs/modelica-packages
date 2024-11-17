@@ -75,10 +75,10 @@ equation
     annotation (Line(points={{-39,-58},{-22,-58}},color={0,0,127}));
   connect(P,P)
     annotation (Line(points={{110,0},{110,0}},     color={0,0,127}));
-  connect(dualModeSwitch.y, P) annotation (Line(points={{41,-30},{96,-30},{96,0},
-          {110,0}}, color={0,0,127}));
   connect(power.y, dualModeSwitch.u1)
     annotation (Line(points={{-39,-22},{18,-22}}, color={0,0,127}));
+  connect(dualModeSwitch.y, P) annotation (Line(points={{41,-30},{96,-30},{96,0},
+          {110,0}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
