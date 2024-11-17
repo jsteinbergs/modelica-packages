@@ -86,8 +86,8 @@ equation
           -30},{60,-26},{41,-26}}, color={0,0,127}));
   connect(gen.P, reqBatP.u2) annotation (Line(points={{-41,-56},{-50,-56},{-50,
           -70},{110,-70},{110,-36},{102,-36}}, color={0,0,127}));
-  connect(loadPVDiff.y, gen.loaDif) annotation (Line(points={{61,10},{70,10},{
-          70,-44},{-19,-44}}, color={0,0,127}));
+  connect(loadPVDiff.y, gen.loaDif) annotation (Line(points={{61,10},{116,10},{
+          116,-44},{-19,-44}},color={0,0,127}));
   connect(community.batSOC, gen.batSOC) annotation (Line(points={{21,-16},{70,
           -16},{70,-56},{-19.2,-56}}, color={0,0,127}));
   connect(gen.terminal, community.terminal) annotation (Line(points={{-29.6,-40},
