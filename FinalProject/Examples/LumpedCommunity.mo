@@ -43,9 +43,11 @@ model LumpedCommunity
   BackupGenerator gen(
     minCha=0.2,
     startupTime=10,
+    idleTime=1800,
+    idlePower=100,
     eta=0.4,
     LHV(displayUnit="J/kg") = 42.6e6,
-    MW=86)
+    MW=114)
     annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
 equation
   connect(community.batSOC, batControl.cha) annotation (Line(points={{21,-16},{

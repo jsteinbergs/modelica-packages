@@ -3,7 +3,11 @@ model BackupGenerator
   parameter Real minCha(min=0,max=1)
     "Minimum SOC to start generator";
   parameter Modelica.Units.SI.Time startupTime(min=0)
-    "Time for generator to startup";
+    "Time generator takes to startup";
+  parameter Modelica.Units.SI.Time idleTime(min=0)
+    "Time generator idles before shutting down";
+  parameter Modelica.Units.SI.Power idlePower
+    "Idle power output";
   parameter Real eta(min=0,max=1)
     "Generator overall efficiency";
   parameter Modelica.Units.SI.SpecificEnergy LHV
@@ -19,7 +23,9 @@ model BackupGenerator
     enableTimer=true,
     waitTime=startupTime)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.StateGraph.Transition turnOff(condition=loaDif >= 0)
+  Modelica.StateGraph.Transition turnOff(condition=loaDif >= 0,
+    enableTimer=true,
+    waitTime=idleTime)
               annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=-1)
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
@@ -28,7 +34,7 @@ model BackupGenerator
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Generator gen(f=60)
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Modelica.Blocks.Interfaces.RealInput loaDif
     annotation (Placement(transformation(extent={{-130,40},{-90,80}})));
   Modelica.Blocks.Interfaces.RealInput batSOC
@@ -52,6 +58,12 @@ model BackupGenerator
     annotation (Placement(transformation(extent={{70,10},{90,30}})));
   Modelica.Blocks.Sources.RealExpression massRatio(y=44/MW)
     annotation (Placement(transformation(extent={{40,4},{60,24}})));
+  Modelica.Blocks.Logical.Switch idleSwitch
+    annotation (Placement(transformation(extent={{-40,-92},{-20,-72}})));
+  Modelica.Blocks.Sources.RealExpression idleP(y=-idlePower)
+    annotation (Placement(transformation(extent={{-70,-100},{-50,-80}})));
+  Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=-idlePower)
+    annotation (Placement(transformation(extent={{-70,-66},{-50,-46}})));
 equation
   connect(genOff.outPort[1], turnON.inPort)
     annotation (Line(points={{-39.5,50},{-34,50}}, color={0,0,0}));
@@ -72,8 +84,6 @@ equation
                                  color={0,120,120}));
   connect(fuelUsage, fuelUsage)
     annotation (Line(points={{110,60},{110,60}}, color={0,0,127}));
-  connect(loaDif, product.u2) annotation (Line(points={{-110,60},{-80,60},{-80,-60},
-          {-10,-60},{-10,-36},{-2,-36}}, color={0,0,127}));
   connect(product.y, P) annotation (Line(points={{21,-30},{30,-30},{30,-60},{110,
           -60}}, color={0,0,127}));
   connect(energyReq.y, fuelMass.u1)
@@ -88,6 +98,16 @@ equation
           110,0}}, color={0,0,127}));
   connect(fuelMass.y, fuelUsage) annotation (Line(points={{61,50},{94,50},{94,60},
           {110,60}}, color={0,0,127}));
+  connect(idleSwitch.y, product.u2) annotation (Line(points={{-19,-82},{-10,-82},
+          {-10,-36},{-2,-36}}, color={0,0,127}));
+  connect(idleP.y, idleSwitch.u3)
+    annotation (Line(points={{-49,-90},{-42,-90}}, color={0,0,127}));
+  connect(loaDif, idleSwitch.u1) annotation (Line(points={{-110,60},{-80,60},{-80,
+          -74},{-42,-74}}, color={0,0,127}));
+  connect(loaDif, lessThreshold.u) annotation (Line(points={{-110,60},{-80,60},{
+          -80,-56},{-72,-56}}, color={0,0,127}));
+  connect(lessThreshold.y, idleSwitch.u2) annotation (Line(points={{-49,-56},{-46,
+          -56},{-46,-82},{-42,-82}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(
           extent={{-60,20},{20,-40}},
