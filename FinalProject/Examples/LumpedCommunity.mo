@@ -2,8 +2,7 @@ within FinalProject.Examples;
 model LumpedCommunity
   "Models RL load suplied by PV, battery, and grid for a single block community"
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/weatherdata/COL_Bogota.802220_IWEC.mos"))
+        "C:/Users/jrs7827/OneDrive - The Pennsylvania State University/Coursework/AE 597 - Modeilica/Final Project/weatherdata/COL_Bogota.802220_IWEC.mos")
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
