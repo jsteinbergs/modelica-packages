@@ -1,0 +1,35 @@
+within FinalProject;
+model SimulationTime
+  "Converts simulation start day and number of days to start and stop time in seconds"
+  parameter Modelica.Units.SI.Time startDOY(min=0)
+    "Simualtion start day of year";
+  parameter Modelica.Units.SI.Time dur(min = 0)
+    "Duration of simulation";
+  Modelica.Blocks.Math.Gain day2s(k=86400)
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
+  Modelica.Blocks.Math.Gain day2s1(k=86400)
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+  Modelica.Blocks.Interfaces.RealOutput simStart
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+  Modelica.Blocks.Interfaces.RealOutput simStop
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+  Modelica.Blocks.Math.Add add
+    annotation (Placement(transformation(extent={{40,-8},{60,12}})));
+  Modelica.Blocks.Sources.RealExpression RE1(y=startDOY)
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+  Modelica.Blocks.Sources.RealExpression RE2(y=dur)
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+equation
+  connect(day2s.y, add.u1)
+    annotation (Line(points={{21,30},{30,30},{30,8},{38,8}}, color={0,0,127}));
+  connect(day2s1.y, add.u2) annotation (Line(points={{21,-30},{30,-30},{30,-4},{
+          38,-4}}, color={0,0,127}));
+  connect(add.y, simStop) annotation (Line(points={{61,2},{96,2},{96,-40},{110,-40}},
+        color={0,0,127}));
+  connect(day2s.y, simStart) annotation (Line(points={{21,30},{94,30},{94,40},{110,
+          40}}, color={0,0,127}));
+  connect(RE1.y, day2s.u)
+    annotation (Line(points={{-19,30},{-2,30}}, color={0,0,127}));
+  connect(RE2.y, day2s1.u)
+    annotation (Line(points={{-19,-30},{-2,-30}}, color={0,0,127}));
+end SimulationTime;

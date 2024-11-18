@@ -32,7 +32,7 @@ model BackupGenerator
   Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Generator gen(f=60)
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    annotation (Placement(transformation(extent={{20,40},{0,60}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Modelica.Blocks.Interfaces.RealInput loaDif
@@ -42,22 +42,22 @@ model BackupGenerator
   Buildings.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_p terminal
     annotation (Placement(transformation(extent={{-14,90},{6,110}})));
   Modelica.Blocks.Interfaces.RealOutput fuelUsage annotation (Placement(
-        transformation(extent={{100,50},{120,70}}), iconTransformation(extent={{
-            100,50},{120,70}})));
+        transformation(extent={{100,-10},{120,10}}),iconTransformation(extent={{100,-10},
+            {120,10}})));
   Modelica.Blocks.Interfaces.RealOutput CO2 annotation (Placement(
-        transformation(extent={{100,-10},{120,10}}), iconTransformation(extent=
-            {{100,-10},{120,10}})));
+        transformation(extent={{100,-70},{120,-50}}),iconTransformation(extent={{100,-70},
+            {120,-50}})));
   Modelica.Blocks.Interfaces.RealOutput P annotation (Placement(transformation(
-          extent={{100,-70},{120,-50}}), iconTransformation(extent={{100,-70},{120,
-            -50}})));
+          extent={{100,50},{120,70}}),   iconTransformation(extent={{100,50},{
+            120,70}})));
   Modelica.Blocks.Sources.RealExpression energyReq(y=1/(eta*LHV))
-    annotation (Placement(transformation(extent={{10,46},{30,66}})));
+    annotation (Placement(transformation(extent={{30,-4},{50,16}})));
   Modelica.Blocks.Math.Product fuelMass
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Math.Product co2Emissions
-    annotation (Placement(transformation(extent={{70,10},{90,30}})));
+    annotation (Placement(transformation(extent={{62,-70},{82,-50}})));
   Modelica.Blocks.Sources.RealExpression massRatio(y=44/MW)
-    annotation (Placement(transformation(extent={{40,4},{60,24}})));
+    annotation (Placement(transformation(extent={{30,-76},{50,-56}})));
   Modelica.Blocks.Logical.Switch idleSwitch
     annotation (Placement(transformation(extent={{-40,-92},{-20,-72}})));
   Modelica.Blocks.Sources.RealExpression idleP(y=-idlePower)
@@ -78,26 +78,30 @@ equation
   connect(booleanToReal.y, product.u1) annotation (Line(points={{-19,-30},{-12,-30},
           {-12,-24},{-2,-24}}, color={0,0,127}));
   connect(product.y, gen.P)
-    annotation (Line(points={{21,-30},{40,-30}}, color={0,0,127}));
-  connect(gen.terminal, terminal) annotation (Line(points={{60,-30},{80,-30},{80,
-          0},{0,0},{0,100},{-4,100}},
-                                 color={0,120,120}));
+    annotation (Line(points={{21,-30},{26,-30},{26,50},{20,50}},
+                                                 color={0,0,127}));
+  connect(gen.terminal, terminal) annotation (Line(points={{0,50},{-4,50},{-4,
+          100}},                 color={0,120,120}));
   connect(fuelUsage, fuelUsage)
-    annotation (Line(points={{110,60},{110,60}}, color={0,0,127}));
-  connect(product.y, P) annotation (Line(points={{21,-30},{30,-30},{30,-60},{110,
-          -60}}, color={0,0,127}));
+    annotation (Line(points={{110,0},{110,0}},   color={0,0,127}));
+  connect(product.y, P) annotation (Line(points={{21,-30},{26,-30},{26,36},{96,
+          36},{96,60},{110,60}},
+                 color={0,0,127}));
   connect(energyReq.y, fuelMass.u1)
-    annotation (Line(points={{31,56},{38,56}}, color={0,0,127}));
-  connect(product.y, fuelMass.u2) annotation (Line(points={{21,-30},{30,-30},{30,
-          44},{38,44}}, color={0,0,127}));
-  connect(fuelMass.y, co2Emissions.u1) annotation (Line(points={{61,50},{64,50},
-          {64,26},{68,26}}, color={0,0,127}));
+    annotation (Line(points={{51,6},{58,6}},   color={0,0,127}));
+  connect(product.y, fuelMass.u2) annotation (Line(points={{21,-30},{26,-30},{
+          26,-6},{58,-6}},
+                        color={0,0,127}));
+  connect(fuelMass.y, co2Emissions.u1) annotation (Line(points={{81,0},{80,0},{
+          80,-40},{50,-40},{50,-54},{60,-54}},
+                            color={0,0,127}));
   connect(massRatio.y, co2Emissions.u2)
-    annotation (Line(points={{61,14},{68,14}}, color={0,0,127}));
-  connect(co2Emissions.y, CO2) annotation (Line(points={{91,20},{96,20},{96,0},{
-          110,0}}, color={0,0,127}));
-  connect(fuelMass.y, fuelUsage) annotation (Line(points={{61,50},{94,50},{94,60},
-          {110,60}}, color={0,0,127}));
+    annotation (Line(points={{51,-66},{60,-66}},
+                                               color={0,0,127}));
+  connect(co2Emissions.y, CO2) annotation (Line(points={{83,-60},{110,-60}},
+                   color={0,0,127}));
+  connect(fuelMass.y, fuelUsage) annotation (Line(points={{81,0},{110,0}},
+                     color={0,0,127}));
   connect(idleSwitch.y, product.u2) annotation (Line(points={{-19,-82},{-10,-82},
           {-10,-36},{-2,-36}}, color={0,0,127}));
   connect(idleP.y, idleSwitch.u3)
