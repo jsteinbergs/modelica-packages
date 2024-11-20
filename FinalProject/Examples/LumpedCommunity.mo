@@ -9,14 +9,14 @@ model LumpedCommunity
   FinalProject.PVBatterySys community(
     chaRat=5000,
     SOC_start=0.2,
-    EMax=36000000,
+    EMax=72000000,
     minCha=0,
     maxCha=0.9,
     deadbandFrac=0.05,
     V_nominal=480,
     P_nominal=-2000,
-    A=15,
-    til=0.5235987755983,
+    A=50,
+    til=1.5707963267949,
     azi=0.26179938779915)
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Modelica.Blocks.Math.Add loadPVDiff(k1=-1)
@@ -48,10 +48,10 @@ model LumpedCommunity
         142,0.2; 144,0.2; 144,0.05; 150,0.05; 150,0.2; 152,0.2; 152,0.1; 162,
         0.1; 162,0.7; 165,0.7; 165,0.4; 167,0.4; 167,0.05; 168,0.05],
     timeScale(displayUnit="h") = 3600,
-    shiftTime(displayUnit="s") = 2.16e7)
+    shiftTime(displayUnit="s"))
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Modelica.Blocks.Continuous.Integrator fuelTot
-    annotation (Placement(transformation(extent={{-80,-40},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-82,-40},{-102,-20}})));
   Modelica.Blocks.Math.Gain kg2gal(k=0.3019)
     annotation (Placement(transformation(extent={{-120,-40},{-140,-20}})));
   Modelica.Blocks.Continuous.Integrator co2Tot
@@ -89,9 +89,9 @@ equation
   connect(loadProfile.y, community.loa) annotation (Line(points={{-19,10},{-10,
           10},{-10,-4},{-1,-4}}, color={0,0,127}));
   connect(gen.fuelUsage, fuelTot.u) annotation (Line(points={{-1,-50},{-68,-50},
-          {-68,-30},{-78,-30}}, color={0,0,127}));
+          {-68,-30},{-80,-30}}, color={0,0,127}));
   connect(fuelTot.y, kg2gal.u)
-    annotation (Line(points={{-101,-30},{-118,-30}}, color={0,0,127}));
+    annotation (Line(points={{-103,-30},{-118,-30}}, color={0,0,127}));
   connect(gen.CO2, co2Tot.u) annotation (Line(points={{-1,-56},{-70,-56},{-70,
           -70},{-78,-70}}, color={0,0,127}));
   connect(gen.P, community.auxP) annotation (Line(points={{-1,-44},{-10,-44},{
