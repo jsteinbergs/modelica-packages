@@ -13,9 +13,9 @@ model PVBatterySys
   parameter Real deadbandFrac(min=0.01,max=0.99)
     "Fraction of charge used to define deadband" annotation (Evaluate=true, Dialog(group="Battery"));
   parameter Modelica.Units.SI.Voltage V_nominal
-    "Nominal PV/Battery voltage";
+    "Nominal PV/battery voltage";
   parameter Modelica.Units.SI.Power P_nominal
-    "Maximum Electrical Load";
+    "Maximum electrical load";
   parameter Modelica.Units.SI.Area A
     "PV gross surface area" annotation (Evaluate=true, Dialog(group="PV Panel"));
   parameter Modelica.Units.SI.Angle til(displayUnit="deg")
