@@ -13,7 +13,7 @@ model LumpedCommunity
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   BackupGenerator gen(
     minSOC=0.1,
-    partSOC=0.5,
+    partSOC=0.35,
     maxSOC=0.6,
     startupTime=30,
     idlePower=100,
@@ -24,11 +24,11 @@ model LumpedCommunity
     annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery bat(
     SOC_start=0.2,
-    EMax=36000000,
+    EMax=54000000,
     V_nominal=480)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented pv(
-    A=30,
+    A=45,
     til=1.5707963267949,
     azi=0.26179938779915,
     V_nominal=480)
