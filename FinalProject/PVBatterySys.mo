@@ -91,7 +91,7 @@ equation
     annotation (Line(points={{39,10},{10,10},{10,0}}, color={0,0,127}));
   connect(reqP.y, controller.loaDif)
     annotation (Line(points={{69,14},{61,14}}, color={0,0,127}));
-  connect(bat.SOC, controller.cha)
+  connect(bat.SOC,controller.SOC)
     annotation (Line(points={{21,-4},{70,-4},{70,6},{61,6}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -12,10 +12,11 @@ model LumpedCommunity
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid sink(f=60, V=480)
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   BackupGenerator gen(
-    minCha=0.1,
-    startupTime=10,
-    idleTime=1800,
-    idlePower=100,
+    minSOC=0.1,
+    maxSOC=0.3,
+    startupTime=30,
+    idlePower=300,
+    partFrac=0.5,
     eta=0.4,
     LHV(displayUnit="J/kg") = 42.6e6,
     MW=114)
@@ -32,14 +33,14 @@ model LumpedCommunity
     V_nominal=480)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   ControlBattery batController(
-    minCha=0,
-    maxCha=0.9,
+    minSOC=0,
+    maxSOC=0.9,
     chaRat=5000,
     deadbandFrac=0.05)
     annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
   CommunityLoads loads(
     nu=5,
-    P_nominal={-500,-500,-500,-500,-500},
+    P_nominal={-300,-300,-300,-300,-300},
     pf={0.8,0.8,0.8,0.8,0.8})
             annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Modelica.Blocks.Math.Add solarMinusLoad(k2=-1)
@@ -136,7 +137,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(bat.SOC, batController.cha) annotation (Line(points={{-59,-64},{-12,
+  connect(bat.SOC,batController.SOC)  annotation (Line(points={{-59,-64},{-12,
           -64},{-12,-54},{-19,-54}}, color={0,0,127}));
   connect(batController.P, bat.P)
     annotation (Line(points={{-41,-50},{-70,-50},{-70,-60}}, color={0,0,127}));

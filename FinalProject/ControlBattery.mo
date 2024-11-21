@@ -1,9 +1,9 @@
 within FinalProject;
 model ControlBattery
-  parameter Real minCha(min=0,max=1)
-    "Minimum allowable charge";
-  parameter Real maxCha(min=0,max=1)
-    "Maximum allowable charge";
+  parameter Real minSOC(min=0,max=1)
+    "Minimum allowable charge < BackupGenerator.minSOC";
+  parameter Real maxSOC(min=0,max=1)
+    "Maximum allowable charge > BackupGenerator.minSOC";
   parameter Modelica.Units.SI.Power chaRat(min=0)
     "Maximum charging rate";
   parameter Real deadbandFrac(min=0.01,max=0.99)
@@ -14,15 +14,15 @@ model ControlBattery
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.StateGraph.StepWithSignal chargeOnly(nIn=1, nOut=1)
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Modelica.StateGraph.Transition T3(condition=cha > maxCha)
+  Modelica.StateGraph.Transition T3(condition=SOC > maxSOC)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.StateGraph.InitialStepWithSignal dualMode(nIn=2, nOut=2)
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Modelica.StateGraph.Transition T1(condition=cha < minCha)
+  Modelica.StateGraph.Transition T1(condition=SOC < minSOC)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Modelica.StateGraph.Transition T4(condition=cha < maxCha - deadbandFrac)
+  Modelica.StateGraph.Transition T4(condition=SOC < maxSOC - deadbandFrac)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Modelica.StateGraph.Transition T2(condition=cha > minCha + deadbandFrac)
+  Modelica.StateGraph.Transition T2(condition=SOC > minSOC + deadbandFrac)
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Modelica.StateGraph.Step dischargeOnly(nIn=1, nOut=1)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
@@ -36,7 +36,7 @@ model ControlBattery
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Interfaces.RealInput loaDif
     annotation (Placement(transformation(extent={{-130,20},{-90,60}})));
-  Modelica.Blocks.Interfaces.RealInput cha
+  Modelica.Blocks.Interfaces.RealInput SOC
     annotation (Placement(transformation(extent={{-130,-60},{-90,-20}})));
   Modelica.Blocks.Interfaces.RealOutput P
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
