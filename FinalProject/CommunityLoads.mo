@@ -1,5 +1,5 @@
 within FinalProject;
-model CommunityLoads
+model CommunityLoads "Model to lump together 5 distinct inductive loads"
   parameter Integer nu(min=0) = 0 "Number of input connections";
   parameter Modelica.Units.SI.Power P_nominal[nu]
     "Maximum electrical load";

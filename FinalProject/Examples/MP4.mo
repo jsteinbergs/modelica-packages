@@ -1,6 +1,5 @@
 within FinalProject.Examples;
-model MP4
-  "Models RL load suplied by PV, battery, and grid for a residential home."
+model MP4 "Model for gird-connected residential home with PV array and battery"
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         ModelicaServices.ExternalReferences.loadResource(
         "modelica://Buildings/Resources/weatherdata/USA_NY_Elmira.Rgnl.AP.725156_TMY3.mos"))

@@ -1,5 +1,5 @@
 within FinalProject;
-model BackupGenerator
+model BackupGenerator "Model of a combustion backup generator"
   parameter Real minSOC(min=0,max=1,unit="1")
     "Minimum SOC to start generator";
   parameter Real partSOC(min=0,max=1,unit="1")

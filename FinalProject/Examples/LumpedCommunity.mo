@@ -1,6 +1,6 @@
 within FinalProject.Examples;
 model LumpedCommunity
-  "Models RL load suplied by PV, battery, and grid for a single block community"
+  "Model for distinct community loads sharing a backup generator, PV array, and battery"
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "C:/Users/jrs7827/OneDrive - The Pennsylvania State University/Coursework/AE 597 - Modeilica/Final Project/weatherdata/COL_Bogota.802220_IWEC.mos")
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));

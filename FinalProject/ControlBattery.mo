@@ -1,5 +1,5 @@
 within FinalProject;
-model ControlBattery
+model ControlBattery "Model for a battery controller"
   parameter Real minSOC(min=0,max=1)
     "Minimum allowable charge < BackupGenerator.minSOC";
   parameter Real maxSOC(min=0,max=1)

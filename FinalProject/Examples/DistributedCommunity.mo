@@ -1,5 +1,6 @@
 within FinalProject.Examples;
 model DistributedCommunity
+  "Model of a community with seperate houses containing an incutive load, PV array, and battery that share resources among members and utilize a backup generator"
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "C:/Users/jrs7827/OneDrive - The Pennsylvania State University/Coursework/AE 597 - Modeilica/Final Project/weatherdata/COL_Bogota.802220_IWEC.mos")
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
@@ -87,13 +88,13 @@ equation
                                    color={0,120,120}));
   connect(loadProfile.y,community. loa) annotation (Line(points={{1,30},{10,30},
           {10,16},{19,16}},      color={0,0,127}));
-  connect(gen.fuelUsage,fuelTot. u) annotation (Line(points={{19,-30},{-18,-30}},
-                                color={0,0,127}));
+  connect(gen.fuelUsage,fuelTot. u) annotation (Line(points={{34,-41},{8,-41},{
+          8,-30},{-18,-30}},    color={0,0,127}));
   connect(fuelTot.y,kg2gal. u)
     annotation (Line(points={{-41,-30},{-60,-30}},   color={0,0,127}));
-  connect(gen.CO2,co2Tot. u) annotation (Line(points={{19,-36},{-10,-36},{-10,
+  connect(gen.CO2,co2Tot. u) annotation (Line(points={{26,-41},{-10,-41},{-10,
           -70},{-18,-70}}, color={0,0,127}));
-  connect(gen.P,community. auxP) annotation (Line(points={{19,-24},{10,-24},{10,
+  connect(gen.P,community. auxP) annotation (Line(points={{19,-30},{10,-30},{10,
           4},{19,4}},         color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-120,-100},{120,100}})), Icon(
         coordinateSystem(extent={{-120,-100},{120,100}})));

@@ -1,5 +1,6 @@
 within FinalProject;
 model PVBatterySys
+  "Model for a single building with an inductive load, PV array, and battery"
   parameter Modelica.Units.SI.Energy EMax(min=0, displayUnit="kW.h")
     "Maximum battery capacity" annotation (Evaluate=true, Dialog(group="Battery"));
   parameter Modelica.Units.SI.Power chaRat(min=0)
