@@ -1,18 +1,18 @@
 within FinalProject;
 model BackupGenerator
-  parameter Real minSOC(min=0,max=1)
+  parameter Real minSOC(min=0,max=1,unit="1")
     "Minimum SOC to start generator";
-  parameter Real partSOC(min=0,max=1)
+  parameter Real partSOC(min=0,max=1,unit="1")
     "Minimum SOC to put generator into partial load";
-  parameter Real maxSOC(min=0,max=1)
+  parameter Real maxSOC(min=0,max=1,unit="1")
     "Minimum SOC to shutdown generator";
   parameter Modelica.Units.SI.Time startupTime(min=0)
     "Time generator takes to startup";
   parameter Modelica.Units.SI.Power idlePower
     "Minimum power output at idle";
-  parameter Real partFrac
+  parameter Real partFrac(min=0,max=1,unit="1")
     "Partial load fraction";
-  parameter Real eta(min=0,max=1)
+  parameter Real eta(min=0,max=1,unit="1")
     "Generator overall efficiency";
   parameter Modelica.Units.SI.SpecificEnergy LHV
     "Lower heating value of the fuel";
