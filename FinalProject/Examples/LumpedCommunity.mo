@@ -13,11 +13,9 @@ model LumpedCommunity
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   BackupGenerator gen(
     minSOC=0.1,
-    partSOC=0.35,
     maxSOC=0.6,
     startupTime=30,
     idlePower=100,
-    partFrac=0.8,
     eta=0.4,
     LHV(displayUnit="J/kg") = 42.6e6,
     MW=114)
@@ -28,7 +26,7 @@ model LumpedCommunity
     V_nominal=480)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented pv(
-    A=45,
+    A=60,
     til=1.5707963267949,
     azi=0.26179938779915,
     V_nominal=480)
@@ -41,7 +39,7 @@ model LumpedCommunity
     annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
   CommunityLoads loads(
     nu=5,
-    P_nominal={-250,-250,-250,-250,-2000},
+    P_nominal={-150,-150,-150,-150,-2000},
     pf={0.8,0.8,0.8,0.8,0.8})
             annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Modelica.Blocks.Math.Add solarMinusLoad(k2=-1)
