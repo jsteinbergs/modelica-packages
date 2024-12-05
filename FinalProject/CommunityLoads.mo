@@ -26,26 +26,21 @@ model CommunityLoads "Model to lump together 5 distinct inductive loads"
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive loadRL3(
     mode=Buildings.Electrical.Types.Load.VariableZ_y_input,
     P_nominal=P_nominal[3],
-    pf=pf[3])
-    annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
+    pf=pf[3]) annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive loadRL4(
     mode=Buildings.Electrical.Types.Load.VariableZ_y_input,
     P_nominal=P_nominal[4],
-    pf=pf[4])
-    annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
+    pf=pf[4]) annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive loadRL5(
     mode=Buildings.Electrical.Types.Load.VariableZ_y_input,
     P_nominal=P_nominal[5],
-    pf=pf[5])
-    annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
+    pf=pf[5]) annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
 equation
   connect(loadAbs.y, P)
     annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
   connect(loadRL1.terminal, terminal)
     annotation (Line(points={{-20,60},{-6,60},{-6,-98}}, color={0,120,120}));
-  connect(u[1], loadRL1.y) annotation (Line(points={{-100,0},{-50,0},{-50,60},{
-          -40,60}}, color={0,0,127}));
-  connect(u[2], loadRL2.y) annotation (Line(points={{-100,0},{-50,0},{-50,30},{
+  connect(u[2], loadRL2.y) annotation (Line(points={{-100,0},{-48,0},{-48,30},{
           -40,30}}, color={0,0,127}));
   connect(u[3], loadRL3.y)
     annotation (Line(points={{-100,0},{-40,0}}, color={0,0,127}));
@@ -61,6 +56,8 @@ equation
     annotation (Line(points={{-20,-30},{-6,-30},{-6,-98}}, color={0,120,120}));
   connect(loadRL5.terminal, terminal)
     annotation (Line(points={{-20,-60},{-6,-60},{-6,-98}}, color={0,120,120}));
+  connect(u[1], loadRL1.y) annotation (Line(points={{-100,0},{-48,0},{-48,60},{
+          -40,60}}, color={0,0,127}));
   annotation (Icon(graphics={
         Polygon(
           points={{-40,-40},{-40,40},{0,74},{40,40},{40,-40},{-40,-40}},
