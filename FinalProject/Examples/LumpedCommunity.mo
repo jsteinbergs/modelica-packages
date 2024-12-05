@@ -154,8 +154,8 @@ equation
   connect(solarMinusLoad.y, gen.loaDif) annotation (Line(points={{101,-4},{106,
           -4},{106,-74},{80,-74},{80,-68},{69,-68}},
                                    color={0,0,127}));
-  connect(bat.SOC, gen.batSOC) annotation (Line(points={{-59,-98},{64,-98},{64,
-          -90},{68.8,-90},{68.8,-80}},            color={0,0,127},
+  connect(bat.SOC, gen.batSOC) annotation (Line(points={{-59,-98},{74,-98},{74,
+          -80},{68.8,-80}},                       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(netP.y, batController.loaDif) annotation (Line(points={{-1,-80},{-19,
           -80}},                     color={0,0,127}));
