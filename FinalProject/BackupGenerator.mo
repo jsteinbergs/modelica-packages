@@ -4,6 +4,8 @@ model BackupGenerator "Model of a combustion backup generator"
     "SOC to start generator";
   parameter Real maxSOC(min=0,max=1,unit="1")
     "SOC to shutdown generator";
+  parameter Modelica.Units.SI.Power chaRat(min=0)
+    "Maximum battery power";
   parameter Modelica.Units.SI.Time startupTime(min=0)
     "Time generator takes to startup";
   parameter Modelica.Units.SI.Power idlePower
@@ -77,16 +79,11 @@ model BackupGenerator "Model of a combustion backup generator"
     annotation (Placement(transformation(extent={{-60,-34},{-40,-14}})));
   Modelica.Blocks.Math.Add add(k1=-1, k2=-1)
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Modelica.Blocks.Interfaces.RealInput chaRat annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={80,108})));
 equation
   connect(genOff.outPort[1], turnON.inPort)
     annotation (Line(points={{-39.5,70},{-34,70}}, color={0,0,0}));
-  connect(gen.terminal, terminal) annotation (Line(points={{60,30},{50,30},{50,28},
-          {40,28},{40,90},{0,90},{0,100},{-4,100}},
+  connect(gen.terminal, terminal) annotation (Line(points={{60,30},{40,30},{40,
+          90},{0,90},{0,100},{-4,100}},
                                  color={0,120,120}));
   connect(fuelUsage, fuelUsage)
     annotation (Line(points={{-40,-110},{-40,-110}},
