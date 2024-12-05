@@ -19,14 +19,14 @@ model BackupGenerator "Model of a combustion backup generator"
   Modelica.StateGraph.StepWithSignal genFull(nIn=1, nOut=1)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.StateGraph.Transition turnON(
-    condition=loaDif < 0 and batSOC < minSOC,
+    condition=loaDif < 0 and (batSOC < minSOC or loaDif < -chaRat),
     enableTimer=true,
     waitTime=startupTime)
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Generator gen(f=60)
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Interfaces.RealInput loaDif
     annotation (Placement(transformation(extent={{-130,40},{-90,80}})));
   Modelica.Blocks.Interfaces.RealInput batSOC
@@ -77,11 +77,16 @@ model BackupGenerator "Model of a combustion backup generator"
     annotation (Placement(transformation(extent={{-60,-34},{-40,-14}})));
   Modelica.Blocks.Math.Add add(k1=-1, k2=-1)
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+  Modelica.Blocks.Interfaces.RealInput chaRat annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={80,108})));
 equation
   connect(genOff.outPort[1], turnON.inPort)
     annotation (Line(points={{-39.5,70},{-34,70}}, color={0,0,0}));
   connect(gen.terminal, terminal) annotation (Line(points={{60,30},{50,30},{50,28},
-          {40,28},{40,90},{0,90},{0,96},{-4,96},{-4,100}},
+          {40,28},{40,90},{0,90},{0,100},{-4,100}},
                                  color={0,120,120}));
   connect(fuelUsage, fuelUsage)
     annotation (Line(points={{-40,-110},{-40,-110}},
@@ -98,16 +103,15 @@ equation
           {-6,70},{-6,49.75},{-1,49.75}},        color={0,0,0}));
   connect(fullOn.outPort, genFull.inPort[1]) annotation (Line(points={{-68.5,30},
           {-61,30}},                                         color={0,0,0}));
-  connect(genIdle.outPort[1], fullOn.inPort) annotation (Line(points={{20.5,
-          49.875},{24,49.875},{24,12},{-84,12},{-84,30},{-74,30}},
+  connect(genIdle.outPort[1], fullOn.inPort) annotation (Line(points={{20.5,49.875},
+          {24,49.875},{24,12},{-84,12},{-84,30},{-74,30}},
                                      color={0,0,0}));
   connect(genFull.outPort[1], fullIdle.inPort) annotation (Line(points={{-39.5,30},
           {-34,30}},                      color={0,0,0}));
-  connect(fullIdle.outPort, genIdle.inPort[2]) annotation (Line(points={{-28.5,
-          30},{-6,30},{-6,50.25},{-1,50.25}},                      color={0,0,0}));
-  connect(genIdle.outPort[2], turnOff.inPort) annotation (Line(points={{20.5,
-          50.125},{30,50.125},{30,8},{-86,8},{-86,70},{-74,70}},
-                                                         color={0,0,0}));
+  connect(fullIdle.outPort, genIdle.inPort[2]) annotation (Line(points={{-28.5,30},
+          {-6,30},{-6,50.25},{-1,50.25}},                          color={0,0,0}));
+  connect(genIdle.outPort[2], turnOff.inPort) annotation (Line(points={{20.5,50.125},
+          {30,50.125},{30,8},{-86,8},{-86,70},{-74,70}}, color={0,0,0}));
   connect(energyReq.y, fuelMass.u2)
     annotation (Line(points={{11,-56},{18,-56}}, color={0,0,127}));
   connect(fuelMass.y, co2Emissions.u1) annotation (Line(points={{41,-50},{50,-50},
