@@ -57,8 +57,8 @@ model PVBatterySys
   Buildings.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_p terminal
     annotation (Placement(transformation(extent={{-114,-10},{-94,10}})));
   ControlBattery controller(
-    minCha=minCha,
-    maxCha=maxCha,
+    minSOC=minSOC,
+    maxSOC=maxSOC,
     chaRat=chaRat,
     deadbandFrac=deadbandFrac)
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
