@@ -13,7 +13,7 @@ model LumpedCommunity
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   BackupGenerator gen(
     minSOC=0.1,
-    maxSOC=0.6,
+    maxSOC=0.7,
     startupTime=30,
     idlePower=100,
     eta=0.4,
@@ -22,19 +22,19 @@ model LumpedCommunity
     annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery bat(
     SOC_start=0.2,
-    EMax=54000000,
+    EMax=97200000,
     V_nominal=480)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented pv(
-    A=60,
+    A=90,
     til=1.5707963267949,
     azi=0.26179938779915,
     V_nominal=480)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   ControlBattery batController(
     minSOC=0,
-    maxSOC=0.9,
-    chaRat=5000,
+    maxSOC=0.95,
+    chaRat=11500,
     deadbandFrac=0.05)
     annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
   CommunityLoads loads(
@@ -113,17 +113,21 @@ model LumpedCommunity
     shiftTime(displayUnit="s"))
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Modelica.Blocks.Sources.TimeTable loadRestaurant1(
-    table=[0,0.1; 9,0.1; 9,0.5; 11,0.5; 11,0.7; 15,0.7; 15,1; 21,1; 21,0.4; 24,
-        0.4; 24,0.1; 33,0.1; 33,0.5; 35,0.5; 35,0.7; 39,0.7; 39,1; 45,1; 45,0.4;
-        48,0.4; 48,0.1; 57,0.1; 57,0.5; 59,0.5; 59,0.7; 63,0.7; 63,1; 69,1; 69,
-        0.4; 72,0.4; 72,0.1; 81,0.1; 81,0.5; 83,0.5; 83,0.7; 87,0.7; 87,1; 93,1;
-        93,0.4; 96,0.4; 96,0.1; 105,0.1; 105,0.5; 107,0.5; 107,0.7; 111,0.7;
-        111,1; 117,1; 117,0.4; 120,0.4; 120,0.1; 129,0.1; 129,0.5; 131,0.5; 131,
-        0.7; 135,0.7; 135,1; 141,1; 141,0.4; 144,0.4; 144,0.1; 153,0.1; 153,0.5;
-        155,0.5; 155,0.7; 159,0.7; 159,1; 165,1; 165,0.4; 168,0.4; 168,0.1],
+    table=[0,0.1; 24,0.1; 33,0.1; 33,0.5; 35,0.5; 35,0.7; 39,0.7; 39,1; 45,1;
+        45,0.4; 48,0.4; 48,0.1; 57,0.1; 57,0.5; 59,0.5; 59,0.7; 63,0.7; 63,1;
+        69,1; 69,0.4; 72,0.4; 72,0.1; 81,0.1; 81,0.5; 83,0.5; 83,0.7; 87,0.7;
+        87,1; 93,1; 93,0.4; 96,0.4; 96,0.1; 105,0.1; 105,0.5; 107,0.5; 107,0.7;
+        111,0.7; 111,1; 117,1; 117,0.4; 120,0.4; 120,0.1; 129,0.1; 129,0.5; 131,
+        0.5; 131,0.7; 135,0.7; 135,1; 141,1; 141,0.4; 144,0.4; 144,0.1; 153,0.1;
+        153,0.5; 155,0.5; 155,0.7; 159,0.7; 159,1; 165,1; 165,0.4; 168,0.4; 168,
+        0.1],
     timeScale(displayUnit="h") = 3600,
     shiftTime(displayUnit="s"))
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+  Modelica.Blocks.Continuous.Integrator eTot(k=1/(3600*1000))
+    annotation (Placement(transformation(extent={{100,-120},{80,-100}})));
+  Modelica.Blocks.Sources.RealExpression chaRat(y=0.95*batController.chaRat)
+    annotation (Placement(transformation(extent={{32,-46},{52,-26}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{0,50},{6,50},{6,46},{30,46}},
@@ -185,6 +189,10 @@ equation
           {-68,30},{-30,30},{-30,-8.8},{-20,-8.8}}, color={0,0,127}));
   connect(loadRestaurant1.y, loads.u[5]) annotation (Line(points={{-119,30},{
           -30,30},{-30,-7.6},{-20,-7.6}}, color={0,0,127}));
+  connect(loads.P, eTot.u) annotation (Line(points={{1,-10},{70,-10},{70,-20},{
+          114,-20},{114,-110},{102,-110}}, color={0,0,127}));
+  connect(chaRat.y, gen.chaRat)
+    annotation (Line(points={{53,-36},{62,-36},{62,-39.2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,
             -140},{120,80}})),                                   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{120,80}})),
