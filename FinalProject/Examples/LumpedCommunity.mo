@@ -32,7 +32,7 @@ model LumpedCommunity
     azi=0,
     V_nominal=480)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  ControlBattery batController(
+  BatteryController batController(
     minSOC=0,
     maxSOC=0.95,
     chaRat=11.5e3,
