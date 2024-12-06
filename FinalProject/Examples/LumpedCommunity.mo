@@ -2,7 +2,7 @@ within FinalProject.Examples;
 model LumpedCommunity
   "Model for distinct community loads sharing a backup generator, PV array, and battery"
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "C:/Users/jrs7827/OneDrive - The Pennsylvania State University/Coursework/AE 597 - Modeilica/Final Project/weatherdata/COL_Bogota.802220_IWEC.mos")
+        "C:/Users/jrs7827/OneDrive - The Pennsylvania State University/Coursework/AE 597 - Modeilica/Final Project/weatherdata/COL_ATL_Barranquilla-Cortissoz.Intl.AP.800280_TMYx.2009-2023.mos")
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
@@ -27,15 +27,15 @@ model LumpedCommunity
     V_nominal=480)
     annotation (Placement(transformation(extent={{-80,-114},{-60,-94}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented pv(
-    A=75,
-    til=1.5707963267949,
-    azi=0.26179938779915,
+    A=55,
+    til=0.43633231299858,
+    azi=0,
     V_nominal=480)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   ControlBattery batController(
     minSOC=0,
     maxSOC=0.95,
-    chaRat=11500,
+    chaRat=11.5e3,
     deadbandFrac=0.05)
     annotation (Placement(transformation(extent={{-20,-94},{-40,-74}})));
   CommunityLoads loads(
