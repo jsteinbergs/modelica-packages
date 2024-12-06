@@ -17,7 +17,7 @@ model MP4 "Model for gird-connected residential home with PV array and battery"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  FinalProject.PVBatterySys house(
+  FinalProject.DistributedBuilding house(
     chaRat=5000,
     SOC_start=0.1,
     EMax=32400000,
