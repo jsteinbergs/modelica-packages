@@ -8,7 +8,7 @@ model CommunityLoads "Model to lump together 5 distinct inductive loads"
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_p terminal
     annotation (Placement(transformation(extent={{-16,-108},{4,-88}})));
-  Modelica.Blocks.Sources.RealExpression loadAbs(y=-u*P_nominal)
+  Modelica.Blocks.Sources.RealExpression loadPos(y=-u*P_nominal)
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Blocks.Interfaces.RealOutput P
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -36,7 +36,7 @@ model CommunityLoads "Model to lump together 5 distinct inductive loads"
     P_nominal=P_nominal[5],
     pf=pf[5]) annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
 equation
-  connect(loadAbs.y, P)
+  connect(loadPos.y, P)
     annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
   connect(loadRL1.terminal, terminal)
     annotation (Line(points={{-20,60},{-6,60},{-6,-98}}, color={0,120,120}));
