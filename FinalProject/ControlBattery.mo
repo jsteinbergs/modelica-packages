@@ -61,14 +61,13 @@ equation
           50},{80,68},{-26,68},{-26,30},{-21,30},{-21,30.25}},      color={0,0,
           0}));
   connect(dualMode.active, dualModeSwitch.u2)
-    annotation (Line(points={{-10,19},{-10,-34},{8,-34},{8,-30},{18,-30}},
-                                                           color={255,0,255}));
+    annotation (Line(points={{-10,19},{-10,-30},{18,-30}}, color={255,0,255}));
   connect(T3.outPort,dischargeOnly. inPort[1])
     annotation (Line(points={{31.5,10},{39,10}},   color={0,0,0}));
   connect(dischargeOnly.outPort[1],T4. inPort)
     annotation (Line(points={{60.5,10},{66,10}},   color={0,0,0}));
   connect(chargeOnly.active, singleModeSwitch.u2) annotation (Line(points={{50,39},
-          {50,28},{6,28},{6,-32},{-30,-32},{-30,-50},{-22,-50}},  color={255,0,255}));
+          {50,28},{6,28},{6,0},{-28,0},{-28,-50},{-22,-50}},      color={255,0,255}));
   connect(chargingRate.y, singleModeSwitch.u1)
     annotation (Line(points={{-39,-42},{-22,-42}},color={0,0,127}));
   connect(dischargingRate.y, singleModeSwitch.u3)
