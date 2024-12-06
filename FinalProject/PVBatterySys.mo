@@ -50,9 +50,9 @@ model PVBatterySys
                                      weaBus "Weather data" annotation (
      Placement(transformation(extent={{-10,70},{10,90}}),  iconTransformation(
           extent={{-10,80},{10,100}})));
-  Modelica.Blocks.Interfaces.RealOutput absLoa
+  Modelica.Blocks.Interfaces.RealOutput loadP
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Sources.RealExpression loadAbs(y=abs(loadRL.P))
+  Modelica.Blocks.Sources.RealExpression loadPos(y=-loadRL.P)
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_p terminal
     annotation (Placement(transformation(extent={{-114,-10},{-94,10}})));
@@ -84,7 +84,7 @@ equation
           110,-60}}, color={0,0,127}));
   connect(loa, loadRL.y) annotation (Line(points={{-110,60},{-50,60},{-50,30},{
           -40,30}},             color={0,0,127}));
-  connect(loadAbs.y, absLoa)
+  connect(loadPos.y, loadP)
     annotation (Line(points={{81,60},{110,60}}, color={0,0,127}));
   connect(terminal, pv.terminal) annotation (Line(points={{-104,0},{-4,0},{-4,
           30},{0,30}},                 color={0,120,120}));
