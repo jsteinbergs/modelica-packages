@@ -1,6 +1,6 @@
 UsersGuide
 BackupGenerator
-ControlBattery
-PVBatterySys
+BatteryController
+DistributedBuilding
 CommunityLoads
 Examples
