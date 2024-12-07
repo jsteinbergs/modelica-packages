@@ -14,7 +14,7 @@ model BackupGenerator "Model of a combustion backup generator"
     "Generator overall efficiency";
   parameter Modelica.Units.SI.SpecificEnergy LHV
     "Lower heating value of the fuel";
-  parameter Real MW
+  parameter Real MW(unit="1")
     "Molar mass of fuel";
   Modelica.StateGraph.InitialStep genOff(nOut=1, nIn=1)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
@@ -140,5 +140,13 @@ equation
           extent={{-150,-88},{150,-48}},
           textColor={0,0,0},
           textString="%name")}),                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>Model for a generator driven by a fossil fuel engine. </p>
+<p>This model determines the output power based on the difference between the system load and renewable sources. The input parameters for engine efficiency and fuel chemistry are used to estimate fuel consumption and emissions. </p>
+<h4>Limitations</h4>
+<p>This model does account for varaible engine efficiency. </p>
+<h4>Validation</h4>
+<p>The model has been validated against the analytical solution in the example
+</html>"));
 end BackupGenerator;
