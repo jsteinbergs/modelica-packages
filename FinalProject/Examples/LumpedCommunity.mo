@@ -20,12 +20,12 @@ model LumpedCommunity
     eta=0.4,
     LHV(displayUnit="J/kg") = 46e6,
     MW=44.1)
-    annotation (Placement(transformation(extent={{68,-84},{48,-64}})));
+    annotation (Placement(transformation(extent={{40,-60},{20,-40}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery bat(
     SOC_start=0.2,
     EMax=48600000,
     V_nominal=480)
-    annotation (Placement(transformation(extent={{-80,-114},{-60,-94}})));
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented pv(
     A=55,
     til=0.43633231299858,
@@ -37,20 +37,20 @@ model LumpedCommunity
     maxSOC=0.95,
     chaRat=11.5e3,
     deadbandFrac=0.05)
-    annotation (Placement(transformation(extent={{-20,-94},{-40,-74}})));
+    annotation (Placement(transformation(extent={{-40,-70},{-60,-50}})));
   CommunityLoads loads(
     nu=5,
-    P_nominal={-150,-150,-150,-150,-2000},
+    P_nominal={-200,-200,-200,-200,-2000},
     pf={0.8,0.8,0.8,0.8,0.8})
             annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Modelica.Blocks.Math.Add solarMinusLoad(k2=-1)
     annotation (Placement(transformation(extent={{80,-14},{100,6}})));
   Modelica.Blocks.Math.Add netP
-    annotation (Placement(transformation(extent={{20,-90},{0,-70}})));
+    annotation (Placement(transformation(extent={{0,-66},{-20,-46}})));
   Modelica.Blocks.Continuous.Integrator fuelTot(k=1)
-    annotation (Placement(transformation(extent={{74,-130},{94,-110}})));
+    annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   Modelica.Blocks.Continuous.Integrator co2Tot
-    annotation (Placement(transformation(extent={{42,-130},{22,-110}})));
+    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   Modelica.Blocks.Sources.TimeTable loadHouse1(
     table=[0,0.05; 9,0.05; 9,0.2; 11,0.2; 11,0.1; 15,0.1; 15,0.3; 18,0.3; 18,1;
         20,1; 20,0.6; 22,0.6; 24,0.6; 24,0.05; 30,0.05; 30,0.3; 32,0.3; 32,0.05;
@@ -126,7 +126,7 @@ model LumpedCommunity
   Modelica.Blocks.Continuous.Integrator eTot(k=1/(3600*1000))
     annotation (Placement(transformation(extent={{80,-46},{100,-26}})));
   Modelica.Blocks.Continuous.Integrator genTot(k=1/(3600*1000))
-    annotation (Placement(transformation(extent={{20,-58},{0,-38}})));
+    annotation (Placement(transformation(extent={{0,-120},{-20,-100}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{0,50},{6,50},{6,46},{30,46}},
@@ -136,11 +136,11 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(bat.SOC,batController.SOC)  annotation (Line(points={{-59,-98},{-12,
-          -98},{-12,-88},{-19,-88}}, color={0,0,127},
+  connect(bat.SOC,batController.SOC)  annotation (Line(points={{-59,-84},{-30,
+          -84},{-30,-64},{-39,-64}}, color={0,0,127},
       pattern=LinePattern.Dash));
   connect(batController.P, bat.P)
-    annotation (Line(points={{-41,-84},{-70,-84},{-70,-94}}, color={0,0,127}));
+    annotation (Line(points={{-61,-60},{-70,-60},{-70,-80}}, color={0,0,127}));
   connect(weaBus, pv.weaBus) annotation (Line(
       points={{30,46},{30,19}},
       color={255,204,51},
@@ -151,33 +151,24 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(pv.P, solarMinusLoad.u1)
     annotation (Line(points={{41,17},{60,17},{60,2},{78,2}}, color={0,0,127}));
-  connect(solarMinusLoad.y, gen.loaDif) annotation (Line(points={{101,-4},{106,
-          -4},{106,-74},{80,-74},{80,-68},{69,-68}},
+  connect(solarMinusLoad.y, gen.loaDif) annotation (Line(points={{101,-4},{104,
+          -4},{104,-18},{41,-18},{41,-44}},
                                    color={0,0,127}));
-  connect(bat.SOC, gen.batSOC) annotation (Line(points={{-59,-98},{74,-98},{74,
-          -80},{68.8,-80}},                       color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(netP.y, batController.loaDif) annotation (Line(points={{-1,-80},{-19,
-          -80}},                     color={0,0,127}));
-  connect(solarMinusLoad.y, netP.u2) annotation (Line(points={{101,-4},{106,-4},
-          {106,-74},{92,-74},{92,-94},{30,-94},{30,-86},{22,-86}},
-                                                 color={0,0,127}));
-  connect(bat.terminal, loads.terminal) annotation (Line(points={{-80,-104},{
-          -86,-104},{-86,-30},{-10.6,-30},{-10.6,-19.8}},
-                                                     color={0,120,120}));
+  connect(netP.y, batController.loaDif) annotation (Line(points={{-21,-56},{-39,
+          -56}},                     color={0,0,127}));
+  connect(solarMinusLoad.y, netP.u2) annotation (Line(points={{101,-4},{108,-4},
+          {108,-62},{2,-62}},                    color={0,0,127}));
+  connect(bat.terminal, loads.terminal) annotation (Line(points={{-80,-90},{-90,
+          -90},{-90,-30},{-10.6,-30},{-10.6,-19.8}}, color={0,120,120}));
   connect(sink.terminal, loads.terminal) annotation (Line(points={{-110,-70},{
-          -110,-80},{-86,-80},{-86,-30},{-10.6,-30},{-10.6,-19.8}}, color={0,
+          -110,-80},{-90,-80},{-90,-30},{-10.6,-30},{-10.6,-19.8}}, color={0,
           120,120}));
-  connect(pv.terminal, loads.terminal) annotation (Line(points={{20,10},{6,10},
-          {6,-30},{-10.6,-30},{-10.6,-19.8}},  color={0,120,120}));
-  connect(gen.terminal, loads.terminal) annotation (Line(points={{58.4,-64},{
-          58.4,-30},{-10.6,-30},{-10.6,-19.8}}, color={0,120,120}));
-  connect(gen.fuelUsage, fuelTot.u) annotation (Line(
-      points={{62,-85},{62,-120},{72,-120}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
-  connect(gen.CO2,co2Tot. u) annotation (Line(points={{54,-85},{54,-120},{44,
-          -120}},          color={0,0,127},
+  connect(pv.terminal, loads.terminal) annotation (Line(points={{20,10},{10,10},
+          {10,-30},{-10.6,-30},{-10.6,-19.8}}, color={0,120,120}));
+  connect(gen.terminal, loads.terminal) annotation (Line(points={{30.4,-40},{
+          30.4,-30},{-10.6,-30},{-10.6,-19.8}}, color={0,120,120}));
+  connect(gen.CO2,co2Tot. u) annotation (Line(points={{26,-61},{26,-110},{38,
+          -110}},          color={0,0,127},
       pattern=LinePattern.Dot));
   connect(loadHouse1.y, loads.u[1]) annotation (Line(points={{-39,50},{-30,50},
           {-30,-12.4},{-20,-12.4}}, color={0,0,127},
@@ -198,13 +189,21 @@ equation
           78,-36}},                        color={0,0,127},
       pattern=LinePattern.Dot));
   connect(gen.P, genTot.u) annotation (Line(
-      points={{47,-74},{30,-74},{30,-48},{22,-48}},
+      points={{19,-50},{10,-50},{10,-110},{2,-110}},
       color={28,108,200},
       pattern=LinePattern.Dot));
   connect(gen.P, netP.u1)
-    annotation (Line(points={{47,-74},{22,-74}}, color={0,0,127}));
+    annotation (Line(points={{19,-50},{2,-50}},  color={0,0,127}));
   connect(loads.P, solarMinusLoad.u2)
     annotation (Line(points={{1,-10},{78,-10}}, color={0,0,127}));
+  connect(gen.fuelUsage, fuelTot.u) annotation (Line(
+      points={{34,-61},{34,-80},{70,-80},{70,-110},{78,-110}},
+      color={0,0,127},
+      pattern=LinePattern.Dot));
+  connect(bat.SOC, gen.batSOC) annotation (Line(
+      points={{-59,-84},{50,-84},{50,-56},{40.8,-56}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,
             -140},{120,80}})),                                   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{120,80}})),
