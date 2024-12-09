@@ -23,7 +23,7 @@ model LumpedCommunity
     annotation (Placement(transformation(extent={{40,-60},{20,-40}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery bat(
     SOC_start=0.2,
-    EMax=97200000,
+    EMax=48600000,
     V_nominal=480)
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented pv(
@@ -121,6 +121,7 @@ model LumpedCommunity
         153,0.5; 155,0.5; 155,0.7; 159,0.7; 159,1; 165,1; 165,0.4; 168,0.4; 168,
         0.1],
     timeScale(displayUnit="h") = 3600,
+    startTime=1.728e5,
     shiftTime(displayUnit="s"))
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Modelica.Blocks.Continuous.Integrator eTot(k=1/(3600*1000))
