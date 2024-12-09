@@ -14,8 +14,8 @@ model BackupGenerator "Model of a combustion backup generator"
     "Generator overall efficiency";
   parameter Modelica.Units.SI.SpecificEnergy LHV
     "Lower heating value of the fuel";
-  parameter Real MW(unit="1")
-    "Molar mass of fuel";
+  parameter Real CR(unit="1")
+    "CO2 to fuel mass ratio";
   Modelica.StateGraph.InitialStep genOff(nOut=1, nIn=1)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.StateGraph.StepWithSignal genFull(nIn=1, nOut=1)
@@ -58,7 +58,7 @@ model BackupGenerator "Model of a combustion backup generator"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Modelica.Blocks.Math.Product co2Emissions
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  Modelica.Blocks.Sources.RealExpression massRatio(y=44/MW)
+  Modelica.Blocks.Sources.RealExpression massRatio(y=CR)
     annotation (Placement(transformation(extent={{30,-86},{50,-66}})));
   Modelica.Blocks.Sources.RealExpression idleP(y=if genIdle.active then -
         idlePower else 0)
