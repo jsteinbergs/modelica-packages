@@ -13,17 +13,17 @@ model LumpedCommunity
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   BackupGenerator gen(
     minSOC=0.1,
-    maxSOC=0.7,
+    maxSOC=0.2,
     chaRat=0.95*batController.chaRat,
     startupTime=30,
     idlePower=100,
     eta=0.4,
     LHV(displayUnit="J/kg") = 46e6,
-    MW=44.1)
+    CR=3)
     annotation (Placement(transformation(extent={{40,-60},{20,-40}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery bat(
     SOC_start=0.2,
-    EMax=48600000,
+    EMax=97200000,
     V_nominal=480)
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented pv(
@@ -128,6 +128,9 @@ model LumpedCommunity
   Modelica.Blocks.Continuous.Integrator genTot(k=1/(3600*1000))
     annotation (Placement(transformation(extent={{0,-120},{-20,-100}})));
 equation
+  connect(loads.P, eTot.u) annotation (Line(points={{1,-10},{70,-10},{70,-36},{
+          78,-36}},                        color={0,0,127},
+      pattern=LinePattern.Dot));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{0,50},{6,50},{6,46},{30,46}},
       color={255,204,51},
@@ -156,8 +159,8 @@ equation
                                    color={0,0,127}));
   connect(netP.y, batController.loaDif) annotation (Line(points={{-21,-56},{-39,
           -56}},                     color={0,0,127}));
-  connect(solarMinusLoad.y, netP.u2) annotation (Line(points={{101,-4},{108,-4},
-          {108,-62},{2,-62}},                    color={0,0,127}));
+  connect(solarMinusLoad.y, netP.u2) annotation (Line(points={{101,-4},{110,-4},
+          {110,-62},{2,-62}},                    color={0,0,127}));
   connect(bat.terminal, loads.terminal) annotation (Line(points={{-80,-90},{-90,
           -90},{-90,-30},{-10.6,-30},{-10.6,-19.8}}, color={0,120,120}));
   connect(sink.terminal, loads.terminal) annotation (Line(points={{-110,-70},{
@@ -185,9 +188,6 @@ equation
   connect(loadRestaurant1.y, loads.u[5]) annotation (Line(points={{-119,30},{
           -30,30},{-30,-7.6},{-20,-7.6}}, color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(loads.P, eTot.u) annotation (Line(points={{1,-10},{70,-10},{70,-36},{
-          78,-36}},                        color={0,0,127},
-      pattern=LinePattern.Dot));
   connect(gen.P, genTot.u) annotation (Line(
       points={{19,-50},{10,-50},{10,-110},{2,-110}},
       color={28,108,200},
