@@ -7,9 +7,9 @@ model DistributedBuilding
     "Maximum charging rate" annotation (Evaluate=true, Dialog(group="Battery"));
   parameter Real SOC_start(max=1)
     "Initial State of Charge" annotation (Evaluate=true, Dialog(group="Battery"));
-  parameter Real minCha(min=0,max=1)
+  parameter Real minSOC(min=0,max=1)
     "Minimum allowable charge" annotation (Evaluate=true, Dialog(group="Battery"));
-  parameter Real maxCha(min=0,max=1)
+  parameter Real maxSOC(min=0,max=1)
     "Maximum allowable charge" annotation (Evaluate=true, Dialog(group="Battery"));
   parameter Real deadbandFrac(min=0.01,max=0.99)
     "Fraction of charge used to define deadband" annotation (Evaluate=true, Dialog(group="Battery"));
