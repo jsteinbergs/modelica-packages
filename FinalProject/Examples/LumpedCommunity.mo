@@ -63,6 +63,7 @@ model LumpedCommunity "Model for distinct community loads sharing a backup gener
         142,0.2; 144,0.2; 144,0.05; 150,0.05; 150,0.2; 152,0.2; 152,0.1; 162,
         0.1; 162,0.7; 165,0.7; 165,0.4; 167,0.4; 167,0.05; 168,0.05],
     timeScale(displayUnit="h") = 3600,
+    startTime=1.728e5,
     shiftTime(displayUnit="s"))
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.TimeTable loadHouse2(
@@ -78,6 +79,7 @@ model LumpedCommunity "Model for distinct community loads sharing a backup gener
         142,0.2; 144,0.2; 144,0.05; 150,0.05; 150,0.2; 152,0.2; 152,0.1; 162,
         0.1; 162,0.7; 165,0.7; 165,0.4; 167,0.4; 167,0.05; 168,0.05],
     timeScale(displayUnit="h") = 3600,
+    startTime=1.728e5,
     shiftTime(displayUnit="s"))
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.TimeTable loadHouse3(
@@ -93,8 +95,9 @@ model LumpedCommunity "Model for distinct community loads sharing a backup gener
         142,0.2; 144,0.2; 144,0.05; 150,0.05; 150,0.2; 152,0.2; 152,0.1; 162,
         0.1; 162,0.7; 165,0.7; 165,0.4; 167,0.4; 167,0.05; 168,0.05],
     timeScale(displayUnit="h") = 3600,
+    startTime=1.728e5,
     shiftTime(displayUnit="s"))
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-100,58},{-80,78}})));
   Modelica.Blocks.Sources.TimeTable loadHouse4(
     table=[0,0.05; 9,0.05; 9,0.2; 11,0.2; 11,0.1; 15,0.1; 15,0.3; 18,0.3; 18,1;
         20,1; 20,0.6; 22,0.6; 24,0.6; 24,0.05; 30,0.05; 30,0.3; 32,0.3; 32,0.05;
@@ -108,6 +111,7 @@ model LumpedCommunity "Model for distinct community loads sharing a backup gener
         142,0.2; 144,0.2; 144,0.05; 150,0.05; 150,0.2; 152,0.2; 152,0.1; 162,
         0.1; 162,0.7; 165,0.7; 165,0.4; 167,0.4; 167,0.05; 168,0.05],
     timeScale(displayUnit="h") = 3600,
+    startTime=1.728e5,
     shiftTime(displayUnit="s"))
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Sources.TimeTable loadRestaurant1(
@@ -179,8 +183,8 @@ equation
   connect(loadHouse2.y, loads.u[2]) annotation (Line(points={{-39,30},{-30,30},{
           -30,8.8},{-20,8.8}},      color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(loadHouse3.y, loads.u[3]) annotation (Line(points={{-79,70},{-68,70},{
-          -68,50},{-30,50},{-30,10},{-20,10}},    color={0,0,127},
+  connect(loadHouse3.y, loads.u[3]) annotation (Line(points={{-79,68},{-68,68},
+          {-68,50},{-30,50},{-30,10},{-20,10}},   color={0,0,127},
       pattern=LinePattern.Dash));
   connect(loadHouse4.y, loads.u[4]) annotation (Line(points={{-79,30},{-68,30},{
           -68,50},{-30,50},{-30,11.2},{-20,11.2}},  color={0,0,127},
