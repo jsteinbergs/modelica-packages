@@ -11,7 +11,7 @@ model LumpedCommunity "Model for distinct community loads sharing a backup gener
             -282,-18},{-262,2}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid sink(f=60, V=480)
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  BackupGenerator gen(
+  .FinalProject.BackupGenerator gen(
     minSOC=0.1,
     maxSOC=0.2,
     chaRat=0.95*batController.chaRat,
@@ -19,8 +19,7 @@ model LumpedCommunity "Model for distinct community loads sharing a backup gener
     idlePower=100,
     eta=0.4,
     LHV(displayUnit="J/kg") = 46e6,
-    CR=3)
-    annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
+    CR=3) annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery bat(
     SOC_start=0.2,
     EMax=48600000,
@@ -32,17 +31,17 @@ model LumpedCommunity "Model for distinct community loads sharing a backup gener
     azi=0,
     V_nominal=480)
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  BatteryController batController(
+  .FinalProject.BatteryController batController(
     minSOC=0,
     maxSOC=0.95,
     chaRat=11.5e3,
     deadbandFrac=0.05)
     annotation (Placement(transformation(extent={{-40,-50},{-60,-30}})));
-  CommunityLoads loads(
+  .FinalProject.CommunityLoads loads(
     nu=5,
     P_nominal={-200,-200,-200,-200,-2000},
     pf={0.8,0.8,0.8,0.8,0.8})
-            annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Modelica.Blocks.Math.Add solarMinusLoad(k2=-1)
     annotation (Placement(transformation(extent={{80,6},{100,26}})));
   Modelica.Blocks.Math.Add netP
