@@ -122,7 +122,7 @@ model LumpedCommunity "Model for distinct community loads sharing a backup gener
     timeScale(displayUnit="h") = 3600,
     startTime=1.728e5,
     shiftTime(displayUnit="s"))
-    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
+    annotation (Placement(transformation(extent={{-130,40},{-110,60}})));
   Modelica.Blocks.Continuous.Integrator eTot(k=1/(3600*1000))
     annotation (Placement(transformation(extent={{80,-26},{100,-6}})));
   Modelica.Blocks.Continuous.Integrator genTot(k=1/(3600*1000))
@@ -185,8 +185,8 @@ equation
   connect(loadHouse4.y, loads.u[4]) annotation (Line(points={{-79,30},{-68,30},{
           -68,50},{-30,50},{-30,11.2},{-20,11.2}},  color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(loadRestaurant1.y, loads.u[5]) annotation (Line(points={{-99,50},{-30,
-          50},{-30,12.4},{-20,12.4}},     color={0,0,127},
+  connect(loadRestaurant1.y, loads.u[5]) annotation (Line(points={{-109,50},{
+          -30,50},{-30,12.4},{-20,12.4}}, color={0,0,127},
       pattern=LinePattern.Dash));
   connect(gen.P, genTot.u) annotation (Line(
       points={{19,-30},{10,-30},{10,-90},{2,-90}},
