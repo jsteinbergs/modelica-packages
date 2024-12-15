@@ -147,6 +147,6 @@ equation
 <h4>Limitations</h4>
 <p>This model does account for varaible engine efficiency. </p>
 <h4>Validation</h4>
-<p>The model has been validated against the analytical solution in the example
+<p>The model has been verified in the example, but not validated.
 </html>"));
 end BackupGenerator;
