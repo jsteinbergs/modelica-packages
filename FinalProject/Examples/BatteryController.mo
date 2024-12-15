@@ -26,5 +26,13 @@ equation
   connect(load.y, batCon.loaDif)
     annotation (Line(points={{59,34},{41,34}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>Model for a generator driven by a fossil fuel engine. </p>
+<p>This model determines the output power based on the difference between the system load and renewable sources. The input parameters for engine efficiency and fuel chemistry are used to estimate fuel consumption and emissions. </p>
+<h4>Limitations</h4>
+<p>This model does account for varaible engine efficiency. </p>
+<h4>Validation</h4>
+<p>The model has been validated against the analytical solution in the example
+</html>"));
 end BatteryController;
