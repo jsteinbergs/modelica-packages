@@ -22,7 +22,7 @@ model LumpedCommunity "Model for distinct community loads sharing a backup gener
     CR=3) annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery bat(
     SOC_start=0.2,
-    EMax=97200000,
+    EMax=48600000,
     V_nominal=480)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented pv(
