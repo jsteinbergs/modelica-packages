@@ -217,11 +217,7 @@ equation
       StopTime=17798400,
       __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
-<p>Model for a generator driven by a fossil fuel engine. </p>
-<p>This model determines the output power based on the difference between the system load and renewable sources. The input parameters for engine efficiency and fuel chemistry are used to estimate fuel consumption and emissions. </p>
-<h4>Limitations</h4>
-<p>This model does account for varaible engine efficiency. </p>
-<h4>Validation</h4>
-<p>The model has been validated against the analytical solution in the example
+<p>This example is used to model an isolated microgrid community with solar PV, a battery, and a backup generator.
+<p>The grid block in this model is used as a sink for excess PV generation so power draw from the grid would indicated an inability to meet the electrical load. </p>
 </html>"));
 end LumpedCommunity;

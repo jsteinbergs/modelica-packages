@@ -180,11 +180,11 @@ equation
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Model for a generator driven by a fossil fuel engine. </p>
-<p>This model determines the output power based on the difference between the system load and renewable sources. The input parameters for engine efficiency and fuel chemistry are used to estimate fuel consumption and emissions. </p>
+<p>Model for a single building with solar PV and a battery. </p>
+<p>This model has an electrical connector and determines the difference in solar PV generation and electrical load. A battery is used as a secondary source to privide electricity when there is an insuffienct amount of PV generation. </p>
 <h4>Limitations</h4>
-<p>This model does account for varaible engine efficiency. </p>
+<p>There are no thermal loads considered in this model. </p>
 <h4>Validation</h4>
-<p>The model has been validated against the analytical solution in the example
+<p>The model has been verified in the example, but not validated.
 </html>"));
 end DistributedBuilding;

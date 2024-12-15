@@ -131,11 +131,11 @@ equation
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Model for a generator driven by a fossil fuel engine. </p>
-<p>This model determines the output power based on the difference between the system load and renewable sources. The input parameters for engine efficiency and fuel chemistry are used to estimate fuel consumption and emissions. </p>
+<p>Model for a battery controller. </p>
+<p>This model determines the power consumed or provided by the battery based on the difference between generated electricity and the load. The battery's state of charge (SOC) is used to determine when the battery can only be charged or discharged. </p>
 <h4>Limitations</h4>
-<p>This model does account for varaible engine efficiency. </p>
+<p>It is assumed that the difference in generated electricity and load is known. </p>
 <h4>Validation</h4>
-<p>The model has been validated against the analytical solution in the example
+<p>The model has been verified in the example, but not validated.
 </html>"));
 end BatteryController;

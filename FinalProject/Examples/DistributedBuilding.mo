@@ -3,7 +3,8 @@ model DistributedBuilding
   "Model for gird-connected residential home with PV array and battery (basis of MiniProject4)"
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "C:/Users/jrs7827/OneDrive - The Pennsylvania State University/Coursework/AE 597 - Modeilica/Final Project/weatherdata/COL_ATL_Barranquilla-Cortissoz.Intl.AP.800280_TMYx.2009-2023.mos")
+        ModelicaServices.ExternalReferences.loadResource(
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.TimeTable loadProfile(
     table=[0,0.05; 9,0.05; 9,0.2; 11,0.2; 11,0.1; 15,0.1; 15,0.3; 18,0.3; 18,1;
@@ -64,11 +65,8 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     experiment(StopTime=86400, __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
-<p>Model for a generator driven by a fossil fuel engine. </p>
-<p>This model determines the output power based on the difference between the system load and renewable sources. The input parameters for engine efficiency and fuel chemistry are used to estimate fuel consumption and emissions. </p>
-<h4>Limitations</h4>
-<p>This model does account for varaible engine efficiency. </p>
-<h4>Validation</h4>
-<p>The model has been validated against the analytical solution in the example
+<p>This example demonstrates the use <a href=\"modelica://FinalProject.DistributedBuilding\">
+FinalProject.DistributedBuilding</a>. </p>
+<p>The model consists of a load profile, gird block, Building's Library Chicago weather file, and no auxiliary power. This model was used to complete Mini Project 4 for AE 597 at The Pennsylvania State University. </p>
 </html>"));
 end DistributedBuilding;

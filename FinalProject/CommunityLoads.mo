@@ -98,11 +98,11 @@ equation
               {4,10},{6,16},{8,10},{10,16},{12,12},{16,12}},
           color={0,0,0},
           thickness=1)}), Documentation(info="<html>
-<p>Model for a generator driven by a fossil fuel engine. </p>
-<p>This model determines the output power based on the difference between the system load and renewable sources. The input parameters for engine efficiency and fuel chemistry are used to estimate fuel consumption and emissions. </p>
+<p>Model to aggregate a multibuilding electrical load. </p>
+<p>This model commbines the electrical loads of 5 buildings. </p>
 <h4>Limitations</h4>
-<p>This model does account for varaible engine efficiency. </p>
+<p>The number of buildings in hard coded and should ideally be vectorized. </p>
 <h4>Validation</h4>
-<p>The model has been validated against the analytical solution in the example
+<p>The model has been verified in the example, but not validated.
 </html>"));
 end CommunityLoads;
