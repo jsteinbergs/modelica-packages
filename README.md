@@ -1,4 +1,4 @@
-# ModelicaPackages
+# modelica-packages
 Personal storage for custom Modelica packages
 
 For latest and previous Modelica Standard Library versions see https://doc.modelica.org/
